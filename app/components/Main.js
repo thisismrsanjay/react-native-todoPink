@@ -5,7 +5,8 @@ import {
     View,
     TextInput,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView
 }from 'react-native';
 
 import Note from './Note';
@@ -28,7 +29,9 @@ export default class Main extends React.Component{
             />
         })
         return(
-            <View style={styles.container}>
+
+            <View   style={styles.container}>
+                
                 <View style={styles.header}>
                     <Text style={styles.headerText}>Todo List</Text>
                 </View>
@@ -37,20 +40,21 @@ export default class Main extends React.Component{
                     {notes}
                 </ScrollView>
 
-                <View style={styles.footer}>
+
+                <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButton}>
+                    <Text style={styles.addButtonText}>+</Text>
+                </TouchableOpacity>
+                
+                <KeyboardAvoidingView behavior="padding" style={styles.footer}>
                     <TextInput onChangeText={(noteText)=>this.setState({noteText})}
                         value={this.state.noteText}
                     style={styles.textInput}
                      placeholder=">todo" placeholderTextColor='white'
                       underlineColorAndroid="transparent">
                       </TextInput>
-                </View>
-
-                <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButton}>
-                    <Text style={styles.addButtonText}>+</Text>
-                </TouchableOpacity>
-
+                </KeyboardAvoidingView>
             </View>
+
         )
     }
 
@@ -104,10 +108,10 @@ const styles = StyleSheet.create({
         borderTopColor:'#ededed'
     },
     addButton:{
-        position:'absolute',
+        position:'relative',
         zIndex:19,
-        right:10,
-        bottom:70,
+        left:270,
+       
         backgroundColor:'#E91E63',
         width:70,
         height:70,
